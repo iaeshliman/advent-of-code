@@ -32,46 +32,55 @@ fn evaluate_game(game: &str, alt: bool) -> (u32, u32) {
             continue;
         }
 
-        if alt {
-            let (score_0, score_1) = evaluate_round_alt(line);
-            total_0 += score_0;
-            total_1 += score_1;
-        } else {
-            let (score_0, score_1) = evaluate_round(line);
-            total_0 += score_0;
-            total_1 += score_1;
-        }
+        let (score_0, score_1) = evaluate_round(line, alt);
+        total_0 += score_0;
+        total_1 += score_1;
     }
 
     return (total_0, total_1);
 }
 
-fn evaluate_round(round: &str) -> (u32, u32) {
-    match round {
-        "A X" => return (4, 4),
-        "A Y" => return (1, 8),
-        "A Z" => return (7, 3),
-        "B X" => return (8, 1),
-        "B Y" => return (5, 5),
-        "B Z" => return (2, 9),
-        "C X" => return (3, 7),
-        "C Y" => return (9, 2),
-        "C Z" => return (6, 6),
-        _ => panic!("unhandled round state '{}'", round),
+fn evaluate_round(round: &str, alt: bool) -> (u32, u32) {
+    if alt {
+        match round {
+            "A X" => return (7, 3),
+            "A Y" => return (4, 4),
+            "A Z" => return (1, 8),
+            "B X" => return (8, 1),
+            "B Y" => return (6, 5),
+            "B Z" => return (2, 9),
+            "C X" => return (9, 2),
+            "C Y" => return (6, 6),
+            "C Z" => return (3, 7),
+            _ => panic!("unhandled round state '{}'", round),
+        }
+    } else {
+        match round {
+            "A X" => return (4, 4),
+            "A Y" => return (1, 8),
+            "A Z" => return (7, 3),
+            "B X" => return (8, 1),
+            "B Y" => return (5, 5),
+            "B Z" => return (2, 9),
+            "C X" => return (3, 7),
+            "C Y" => return (9, 2),
+            "C Z" => return (6, 6),
+            _ => panic!("unhandled round state '{}'", round),
+        }
     }
 }
 
-fn evaluate_round_alt(round: &str) -> (u32, u32) {
-    match round {
-        "A X" => return (7, 3),
-        "A Y" => return (4, 4),
-        "A Z" => return (1, 8),
-        "B X" => return (8, 1),
-        "B Y" => return (6, 5),
-        "B Z" => return (2, 9),
-        "C X" => return (9, 2),
-        "C Y" => return (6, 6),
-        "C Z" => return (3, 7),
-        _ => panic!("unhandled round state '{}'", round),
-    }
-}
+// fn evaluate_round_alt(round: &str) -> (u32, u32) {
+//     match round {
+//         "A X" => return (7, 3),
+//         "A Y" => return (4, 4),
+//         "A Z" => return (1, 8),
+//         "B X" => return (8, 1),
+//         "B Y" => return (6, 5),
+//         "B Z" => return (2, 9),
+//         "C X" => return (9, 2),
+//         "C Y" => return (6, 6),
+//         "C Z" => return (3, 7),
+//         _ => panic!("unhandled round state '{}'", round),
+//     }
+// }
